@@ -1,7 +1,7 @@
 const express = require('express');
 const server = express();
 const httpServer = require('http').Server(server);
-const client = require('socket.io')(httpServer);
+const io = require('socket.io')(httpServer);
 
 var messages = [];
 
@@ -11,12 +11,12 @@ server.get('/', function(req,res){
 });
 httpServer.listen(3000);
 
-client.on('connection', function(socket){
+io.on('connection', function(socket){
     for(var i in messages){
-        client.sockets.emit('display message', messages[i])
+        io.sockets.emit('display message', messages[i]);
     }
     socket.on('send message', function(data){
         messages.push(data);
-        client.sockets.emit('display message', data)
+        io.sockets.emit('display message', data);
     });
 });

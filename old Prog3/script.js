@@ -14,6 +14,13 @@ for (var my = 0; my < n; my++) {
     }
 }
 
+var Grass = require('./modules/class.grass');
+var GrassEater = require('./modules/class.grasseater');
+var Wolf = require('./modules/class.wolf');
+var Poisoner = require('./modules/class.poisoner');
+var Human = require('./modules/class.human');
+var Cat = require('./modules/class.cat');
+
 var stren;
 
 var side = 120;
@@ -44,6 +51,7 @@ var arrs = {
         }
     }
 };
+
 var tact = 0;
 
 var grassArr = [];
@@ -52,12 +60,6 @@ var wolfArr = [];
 var poisonerArr = [];
 var humanArr = [];
 var catArr = [];
-
-var grass;
-var grasseater;
-var wolf;
-var poisoner;
-var human;
 
 function gend() {
     var r = Math.random();
@@ -190,11 +192,10 @@ function searchinarr(arr, elem) {
         }
     }
 }
-var stugum;
 
 function wind1(arr, strength) {
     for (var iter in arr) {
-        stugum = arr[iter].x - strength;
+        var stugum = arr[iter].x - strength;
         if (stugum < 0) {
             arr[iter].die();
         }
@@ -204,7 +205,7 @@ function wind1(arr, strength) {
 
 function wind2(arr, strength) {
     for (var iter in arr) {
-        stugum = arr[iter].x + strength;
+        var stugum = arr[iter].x + strength;
         if (stugum > matrix[0].length) {
             arr[iter].die();
         }
@@ -214,7 +215,7 @@ function wind2(arr, strength) {
 
 function wind3(arr, strength) {
     for (var iter in arr) {
-        stugum = arr[iter].y - strength;
+        var stugum = arr[iter].y - strength;
         if (stugum < 0) {
             arr[iter].die();
         }
@@ -224,7 +225,7 @@ function wind3(arr, strength) {
 
 function wind4(arr, strength) {
     for (var iter in arr) {
-        stugum = arr[iter].y + strength;
+        var stugum = arr[iter].y + strength;
         if (stugum > matrix.length) {
             arr[iter].die();
         }

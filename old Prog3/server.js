@@ -10,7 +10,7 @@
 // server.listen(4444);
 
 // io.on(
-//     'connection', function(){
-
+//     'connection', function(socket){
+//         socket.emit('')
 //     }
 // )
