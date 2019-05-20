@@ -5,14 +5,14 @@ var io = require('socket.io')(server);
 
 app.use(express.static("."));
 app.get('/', function (req, res) {
-   res.redirect('index.html');
+    res.redirect('index.html');
 });
 server.listen(2000);
 
 var cq = 7;
 var n = 5;
 var m = 5;
-var matrix = [];
+matrix = [];
 var creatureArrs = [];
 for (var my = 0; my < n; my++) {
     matrix[my] = [];
@@ -26,16 +26,23 @@ for (var my = 0; my < n; my++) {
     }
 }
 
-const Grass = require('./modules/class.grass');
-const GrassEater = require('./modules/class.grasseater');
-const Wolf = require('./modules/class.wolf');
-const Poisoner = require('./modules/class.poisoner');
-const Human = require('./modules/class.human');
-const Cat = require('./modules/class.cat');
-const side = 120;
-var season = 0;
+Grass = require('./modules/class.grass');
+GrassEater = require('./modules/class.grasseater');
+Wolf = require('./modules/class.wolf');
+Poisoner = require('./modules/class.poisoner');
+Human = require('./modules/class.human');
+Cat = require('./modules/class.cat');
 
-const arrs = {
+season = 0;
+
+grassArr = [];
+grasseaterArr = [];
+wolfArr = [];
+poisonerArr = [];
+humanArr = [];
+catArr = [];
+
+arrs = {
     "Grass": grassArr,
     "GrassEater": grasseaterArr,
     "Wolf": wolfArr,
@@ -61,15 +68,6 @@ const arrs = {
     }
 };
 
-
-
-var grassArr = [];
-var grasseaterArr = [];
-var wolfArr = [];
-var poisonerArr = [];
-var humanArr = [];
-var catArr = [];
-
 function gend() {
     var r = Math.random();
     if (r < 1 / 2) {
@@ -78,7 +76,12 @@ function gend() {
 }
 
 
-for (var y = 0; y < matrix.length; y++) {
+io.on('wind', function(str){
+    wind(str);
+});
+
+setInterval(function () {
+    for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
             if (matrix[y][x] == 1) {
                 grassArr.push(new Grass(x, y, 1));
@@ -91,11 +94,11 @@ for (var y = 0; y < matrix.length; y++) {
             } else if (matrix[y][x] == 5) {
                 humanArr.push(new Human(x, y, 5));
             } else if (matrix[y][x] == 6) {
-                catArr.push(new Cat(x, y, 6));
+                catArr.push(new Cat(x, y, 6, gend()));
             }
         }
     }
-for (var f in grassArr) {
+    for (var f in grassArr) {
         grassArr[f].mul();
     }
     for (var g in grasseaterArr) {
@@ -103,7 +106,7 @@ for (var f in grassArr) {
     }
     for (var h in wolfArr) {
         wolfArr[h].eat();
-    }
+    }   
     for (var i in poisonerArr) {
         poisonerArr[i].mul();
     }
@@ -113,8 +116,9 @@ for (var f in grassArr) {
     for (var k in catArr) {
         catArr[k].eat();
     }
-    creatureArrs = [grassArr,grasseaterArr,wolfArr,poisonerArr,humanArr,catArr];
-
+    creatureArrs = [grassArr, grasseaterArr, wolfArr, poisonerArr, humanArr, catArr];
+    io.emit('sending matrix season', [matrix, season]);
+}, 1000);
 function wind1(arr, strength) {
     for (var iter in arr) {
         var stugum = arr[iter].x - strength;
@@ -155,22 +159,18 @@ function wind4(arr, strength) {
     }
 }
 
-function wind() {
+function wind(stren) {
     var ra = Math.random();
-    
-        creatureArrs.forEach(function(arr){
-            if (ra > 0 / 4 && ra < 1 / 4) {
-                wind1(arr, stren);
-            } else if (ra > 1 / 4 && ra < 2 / 4) {
-                wind2(arr, stren);
-            } else if (ra > 2 / 4 && ra < 3 / 4) {
-                wind3(arr, stren);
-            } else { 
-                wind4(arr, stren);
-            }
-        });
-}
 
-io.on('connection', function(client){
-    client.emit('send matrix & season', matrix, season);
-})
+    creatureArrs.forEach(function (arr) {
+        if (ra > 0 / 4 && ra < 1 / 4) {
+            wind1(arr, stren);
+        } else if (ra > 1 / 4 && ra < 2 / 4) {
+            wind2(arr, stren);
+        } else if (ra > 2 / 4 && ra < 3 / 4) {
+            wind3(arr, stren);
+        } else {
+            wind4(arr, stren);
+        }
+    });
+}

@@ -1,5 +1,6 @@
 var newgr;
 const Base = require('./class.base');
+const random = require('./random');
 module.exports = class Grass extends Base {
     constructor(x, y, index) {
         super(x, y, index);

@@ -2,6 +2,7 @@ var randomgaylmard = Math.random();
 var newX;
 var newY;
 const Base = require('./class.base');
+const random = require('./random');
 module.exports =class Human extends Base {
     constructor(x, y, index) {
         super(x, y, index);

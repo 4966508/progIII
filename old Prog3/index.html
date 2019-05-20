@@ -4,19 +4,15 @@
 <head>
 	<title></title>
 	<meta charset="utf8">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script>
 	<script type="text/javascript" src="script.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
 	<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-	<div id="main">
-		<div id="canvas">
-			<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script>
-		</div>
-		<p id="seasontime"></p>
-	</div>
-	<button onclick="wind();" class="evts" id="wind">Wind</button>
+	<p id="seasontime"></p>
+	<button onclick="askwind();" class="evts" id="wind">Wind</button>
 	<button onclick="stren = prompt('insert wind strength'); stren = parseInt(stren);" id="changewind">Change wind strength</button>
 </body>
 

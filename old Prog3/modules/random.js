@@ -3,6 +3,6 @@ module.exports = function(arg){
         return arg[Math.floor(Math.random()*arg.length)]
     }
     else if(typeof arg == 'number'){
-        return;
+        return Math.floor(Math.random()*arg)
     }
 }

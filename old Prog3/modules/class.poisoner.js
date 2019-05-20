@@ -1,4 +1,5 @@
 const Base = require('./class.base');
+const random = require('./random');
 module.exports =class Poisoner extends Base {
     constructor(x, y, index) {
         super(x, y, index);
