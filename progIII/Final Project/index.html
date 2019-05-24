@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title></title>
+	<meta charset="utf8">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script>
+	<script type="text/javascript" src="script.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<p id="seasontime"></p>
+	<button class="evts" id="wind">Wind</button>
+	<button onclick="stren = prompt('insert wind strength'); stren = parseInt(stren); windStrengthWrite();" id="changewind">Change wind
+		strength</button>
+	<p id="windstr"></p>
+	<p id='jsondata'></p>
+</body>
+
+</html>
