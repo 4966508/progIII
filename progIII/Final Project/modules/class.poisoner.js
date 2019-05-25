@@ -5,7 +5,7 @@ module.exports =class Poisoner extends Base {
         super(x, y, index);
     }
     chooseCell(character) {
-        return super.chooseCell(character);
+        return super.chooseCell(character, 1);
     }
     mul() {
         this.tact++;

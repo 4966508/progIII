@@ -1,7 +1,6 @@
 const random = require('./random');
 var rand4;
 const Base = require('./class.base');
-const random = require('./random');
 module.exports = class Cat extends Base {
     constructor(x, y, index, gender) {
         super(x, y, index, gender);
